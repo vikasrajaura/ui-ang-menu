@@ -1,0 +1,53 @@
+<!-- Header -->
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="opened=!opened"> <mat-icon>menu</mat-icon></button>
+    <button mat-button> <mat-icon>home</mat-icon>Home</button>
+    <button mat-button> <mat-icon>about</mat-icon>About</button>
+    <button mat-button> <mat-icon>contact</mat-icon>Contact Us</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+<!-- Left Navigation Menu -->
+<mat-sidenav-container>
+
+  <mat-sidenav [(opened)]="opened" mode="over">
+    <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start">
+
+      <!-- Left Nav First Tab -->
+      <mat-tab>
+        <ng-template mat-tab-label> <mat-icon>home</mat-icon> </ng-template>
+        <mat-list>
+          <mat-list-item><button mat-menu-item (click)="opened=!opened" routerLink="/home"> Home</button></mat-list-item>
+          <mat-list-item><button mat-menu-item (click)="opened=!opened" routerLink="/about"> About</button></mat-list-item>
+          <mat-list-item><button mat-menu-item (click)="opened=!opened" routerLink="/contact"> Contact</button></mat-list-item>
+        </mat-list>
+      </mat-tab>
+      <!-- Left Nav First Tab End -->
+
+      <!-- Left Nav Second Tab -->
+      <mat-tab>
+        <ng-template mat-tab-label> <mat-icon>settings</mat-icon> </ng-template>
+        <mat-list>
+          <mat-list-item *ngFor="let basemenu of myMenuItems.AllMenus">
+            <button mat-button [matMenuTriggerFor]="submenu.Submenuitem">
+              {{basemenu.Name}}
+            </button>
+            <app-submenuitems (SelectedMenu)="clickeventhandler($event)" #submenu
+              [SubMenuItems]="basemenu.SubMenuItems"> 
+            </app-submenuitems>
+          </mat-list-item>
+        </mat-list>
+
+      </mat-tab>
+      <!-- Left Nav Second Tab End-->
+
+    </mat-tab-group>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

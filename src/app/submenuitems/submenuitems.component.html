@@ -1,0 +1,20 @@
+<mat-menu #Submenuitem="matMenu" [overlapTrigger]="false">
+  <div *ngFor="let submenu of SubMenuItems">
+
+    <span *ngIf="submenu.SubMenuItems && submenu.SubMenuItems.length > 0">
+      <button mat-menu-item [matMenuTriggerFor]="secondsubmenu.Submenuitem">
+        <span>{{submenu.Name}}</span>
+      </button>
+      <app-submenuitems (SelectedMenu)="clickeventhandler($event)" #secondsubmenu [SubMenuItems]="submenu.SubMenuItems" >
+      </app-submenuitems>
+    </span>
+
+    <span *ngIf="!submenu.SubMenuItems || submenu.SubMenuItems.length === 0">
+      <!-- <button  mat-menu-item  (click)="clickeventhandler(submenu)" [routerLink]="submenu.Value" > -->
+      <button mat-menu-item (click)="clickeventhandler(submenu)">
+        <span>{{submenu.Name}}</span>
+      </button>
+    </span>
+
+  </div>
+</mat-menu>
